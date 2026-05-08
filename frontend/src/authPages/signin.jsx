@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     // Main Container (Full screen background)
     <div className="min-h-screen flex items-center justify-center bg-[#0a0a0b] text-white p-4 font-sans">
@@ -10,7 +13,6 @@ const SignIn = () => {
 
         {/* Top Section: Header & Form */}
         <div className="p-8 pb-6">
-          <h2 className="text-xl font-semibold text-center text-[#ededed] mb-1.5">Sign in to Acme Co</h2>
           <p className="text-[#a1a1aa] text-sm text-center mb-7">Welcome back! Please sign in to continue</p>
 
           {/* Social Auth Buttons */}
@@ -41,7 +43,7 @@ const SignIn = () => {
             <div className="flex-1 h-[1px] bg-[#2e2e32]"></div>
           </div>
 
-          {/* Email Form */}
+          {/* Email and Password Form */}
           <form onSubmit={(e) => e.preventDefault()}>
             <div className="flex justify-between items-center mb-1.5">
               <label className="text-[13px] font-medium text-[#ededed]">Email address</label>
@@ -50,8 +52,27 @@ const SignIn = () => {
             <input
               type="email"
               placeholder="Enter your email address"
-              className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white placeholder-[#71717a] focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all mb-5"
+              className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white placeholder-[#71717a] focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all mb-4"
             />
+
+            <div className="flex justify-between items-center mb-1.5">
+              <label className="text-[13px] font-medium text-[#ededed]">Password</label>
+              <button type="button" className="text-[13px] text-[#a1a1aa] hover:text-[#ededed] transition-colors">Forgot password?</button>
+            </div>
+            <div className="relative mb-5">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white placeholder-[#71717a] focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#71717a] hover:text-white transition-colors"
+              >
+                <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-[13px]`}></i>
+              </button>
+            </div>
 
             <button type="submit" className="w-full bg-white text-black font-semibold py-2 rounded-lg text-[13px] flex items-center justify-center gap-1.5 hover:bg-gray-200 transition-colors">
               Continue
@@ -68,14 +89,6 @@ const SignIn = () => {
             <p className="text-[#a1a1aa] text-[13px]">
               Don't have an account? <Link to="/signup" className="text-white font-medium hover:underline">Sign up</Link>
             </p>
-          </div>
-          <div className="py-3 flex justify-center items-center gap-1 opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
-            <span className="text-[#a1a1aa] text-[12px]">Secured by</span>
-            {/* Clerk Logo Mockup */}
-            <svg width="45" height="14" viewBox="0 0 50 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6.5 12C3.46243 12 1 9.53757 1 6.5C1 3.46243 3.46243 1 6.5 1C8.01878 1 9.39378 1.61561 10.3844 2.60622L8.97022 4.02044C8.33272 3.38294 7.46243 3 6.5 3C4.567 3 3 4.567 3 6.5C3 8.433 4.567 10 6.5 10C7.46243 10 8.33272 9.61706 8.97022 8.97956L10.3844 10.3938C9.39378 11.3844 8.01878 12 6.5 12Z" fill="white" />
-              <text x="14" y="11" fill="white" fontSize="12" fontWeight="bold" fontFamily="sans-serif">clerk</text>
-            </svg>
           </div>
         </div>
 
