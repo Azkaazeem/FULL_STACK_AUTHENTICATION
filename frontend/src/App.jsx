@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import SignIn from './authPages/signin';
 import SignUp from './authPages/signup';
+import AdminDashboard from './admin/AdminDashboard';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <Routes>
         {/* Default route ko signin par bhej dega */}
         <Route path="/" element={<Navigate to="/signin" />} /> 
-        
+        <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
