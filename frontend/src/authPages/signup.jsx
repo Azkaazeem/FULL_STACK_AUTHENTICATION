@@ -5,29 +5,27 @@ import toast from 'react-hot-toast';
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  // 1. Data save karne ke liye States
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('user');
 
-  const navigate = useNavigate(); // Page change karne ke liye
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    // Naya: Loading toast (taake user ko pata chalay background mein kuch ho raha hai)
     const loadingToast = toast.loading("Creating account...");
 
     try {
       const response = await fetch('http://localhost:5000/api/v1/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, role: "user" })
+        body: JSON.stringify({ name, email, password, role })
       });
 
       const data = await response.json();
 
-      // Loading wala toast hata dein
       toast.dismiss(loadingToast);
 
       if (data.status === true) {
@@ -103,6 +101,19 @@ const SignUp = () => {
                 <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
               </button>
             </div>
+          </div>
+
+          {/* Role Dropdown */}
+          <div>
+            <label className="block text-sm font-medium text-[#ededed] mb-2">Select Role</label>
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-xl px-4 py-3 text-sm text-[#ededed] focus:outline-none focus:ring-1 focus:ring-[#6c47ff] transition-all"
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
 
           <button type="submit" className="w-full bg-[#6c47ff] hover:bg-[#5a36e0] text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 group mt-2">

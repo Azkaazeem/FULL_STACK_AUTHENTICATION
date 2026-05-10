@@ -5,12 +5,17 @@ import { useNavigate } from 'react-router-dom';
 function AdminDashboard() {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
+  const [selectedRole, setSelectedRole] = useState('All');
   const [users, setUsers] = useState([]);
 
   const chart = [38, 62, 44, 78, 56, 84, 70];
-  const filteredUsers = users.filter((user) =>
-    `${user.name} ${user.email}`.toLowerCase().includes(search.toLowerCase())
-  );
+  const roles = ['All', 'Admin', 'Manager', 'User'];
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch = `${user.name} ${user.email}`.toLowerCase().includes(search.toLowerCase());
+    const matchesRole = selectedRole === 'All' || user.role === selectedRole;
+
+    return matchesSearch && matchesRole;
+  });
   const activeUsers = users.filter((user) => user.status === 'Active').length;
 
   const deleteUser = (id) => {
@@ -64,7 +69,7 @@ function AdminDashboard() {
       </aside>
 
       <main className="flex-1 p-4 sm:p-6 lg:p-8">
-        <header className="mb-8 grid gap-4 md:grid-cols-[1fr_340px] md:items-center">
+        <header className="mb-8 grid gap-4 xl:grid-cols-[1fr_340px_180px] xl:items-center">
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.25em] text-cyan-300">Overview</p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl">Admin Dashboard</h2>
@@ -79,6 +84,18 @@ function AdminDashboard() {
               className="w-full border border-white/10 bg-[#11141d] py-3 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400"
             />
           </label>
+
+          <select
+            value={selectedRole}
+            onChange={(event) => setSelectedRole(event.target.value)}
+            className="w-full border border-white/10 bg-[#11141d] px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-400"
+          >
+            {roles.map((role) => (
+              <option key={role} value={role} className="bg-[#11141d]">
+                {role === 'All' ? 'All Roles' : role}
+              </option>
+            ))}
+          </select>
         </header>
 
         <section className="mb-6 grid gap-4 md:grid-cols-3">
@@ -130,6 +147,7 @@ function AdminDashboard() {
                 <tr>
                   <th className="px-5 py-4">Name</th>
                   <th className="px-5 py-4">Email</th>
+                  <th className="px-5 py-4">Role</th>
                   <th className="px-5 py-4">Status</th>
                   <th className="px-5 py-4 text-right">Action</th>
                 </tr>
@@ -140,6 +158,7 @@ function AdminDashboard() {
                     <tr key={user.id} className="border-t border-white/10 text-slate-300 hover:bg-white/[0.03]">
                       <td className="px-5 py-4 font-medium text-white">{user.name}</td>
                       <td className="px-5 py-4">{user.email}</td>
+                      <td className="px-5 py-4">{user.role}</td>
                       <td className="px-5 py-4">
                         <span className="border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">
                           {user.status}
@@ -158,7 +177,7 @@ function AdminDashboard() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4" className="px-5 py-12 text-center text-slate-500">
+                    <td colSpan="5" className="px-5 py-12 text-center text-slate-500">
                       No users to display.
                     </td>
                   </tr>

@@ -3,19 +3,16 @@ import { Link } from 'react-router-dom';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [role, setRole] = useState('user');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
-    // Main Container (Full screen background)
     <div className="min-h-screen flex items-center justify-center bg-[#0a0a0b] text-white p-4 font-sans">
 
-      {/* Card Container */}
       <div className="w-full max-w-[400px] bg-[#131315] rounded-xl border border-[#2e2e32] shadow-2xl overflow-hidden">
-
-        {/* Top Section: Header & Form */}
         <div className="p-8 pb-6">
           <p className="text-[#a1a1aa] text-sm text-center mb-7">Welcome back! Please sign in to continue</p>
-
-          {/* Social Auth Buttons */}
           <div className="flex gap-3 mb-6">
             <button className="flex-1 flex items-center justify-center gap-2 bg-[#1a1a1d] border border-[#2e2e32] hover:bg-[#27272a] transition-colors py-1.5 rounded-lg text-[13px] font-medium text-[#ededed]">
               {/* GitHub Icon */}
@@ -25,7 +22,6 @@ const SignIn = () => {
               GitHub
             </button>
             <button className="flex-1 flex items-center justify-center gap-2 bg-[#1a1a1d] border border-[#2e2e32] hover:bg-[#27272a] transition-colors py-1.5 rounded-lg text-[13px] font-medium text-[#ededed]">
-              {/* Google Icon */}
               <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
@@ -51,6 +47,8 @@ const SignIn = () => {
             </div>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
               className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white placeholder-[#71717a] focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all mb-4"
             />
@@ -62,6 +60,8 @@ const SignIn = () => {
             <div className="relative mb-5">
               <input
                 type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white placeholder-[#71717a] focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all"
               />
@@ -72,6 +72,18 @@ const SignIn = () => {
               >
                 <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-[13px]`}></i>
               </button>
+            </div>
+
+            <div className="mb-5">
+              <label className="block text-[13px] font-medium text-[#ededed] mb-1.5">Select Role</label>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all"
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
             </div>
 
             <button type="submit" className="w-full bg-white text-black font-semibold py-2 rounded-lg text-[13px] flex items-center justify-center gap-1.5 hover:bg-gray-200 transition-colors">
