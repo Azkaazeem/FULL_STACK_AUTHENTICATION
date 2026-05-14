@@ -4,6 +4,8 @@ import { Toaster } from 'react-hot-toast'; // 1. Yeh import karein
 import SignIn from './authPages/signin';
 import SignUp from './authPages/signup';
 import AdminDashboard from './admin/AdminDashboard';
+import Home from './user/home';
+import NotFound from './errorPage';
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/home" element={<Home />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </Router>
   );

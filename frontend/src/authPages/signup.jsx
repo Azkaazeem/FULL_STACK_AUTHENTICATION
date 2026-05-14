@@ -46,86 +46,103 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0a0a0b] text-white p-4 font-sans">
-      <div className="w-full max-w-[420px] bg-[#131315] rounded-2xl border border-[#2e2e32] shadow-2xl overflow-hidden p-10">
 
-        <div className="flex flex-col items-center mb-8">
-          <h2 className="text-2xl font-semibold text-[#ededed]">Create your account</h2>
-        </div>
+      <div className="w-full max-w-[400px] bg-[#131315] rounded-xl border border-[#2e2e32] shadow-2xl overflow-hidden">
+        <div className="p-8 pb-6">
+          <p className="text-[#a1a1aa] text-sm text-center mb-7">Create an account to get started</p>
 
-        {/* 3. Form ke onSubmit par apna function call karna */}
-        <form onSubmit={handleSignup} className="space-y-5">
+          {/* Profile Picture */}
+          <div className="flex justify-center mb-6">
+            <label
+              htmlFor='profile'
+              className="w-24 h-24 rounded-full bg-gray-600 flex justify-center items-center cursor-pointer hover:bg-gray-500 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg"
+            >
+              <i className="fas fa-user text-white text-4xl"></i>
+            </label>
+            <input type="file" className="hidden" id='profile' />
+          </div>
 
-          {/* Full Name Input */}
-          <div>
-            <label className="block text-sm font-medium text-[#ededed] mb-2">Full Name</label>
+          {/* Signup Form */}
+          <form onSubmit={handleSignup}>
+            
+            {/* Name Input */}
+            <div className="flex justify-between items-center mb-1.5">
+              <label className="text-[13px] font-medium text-[#ededed]">Full Name</label>
+            </div>
             <input
               type="text"
-              required
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter your full name"
-              className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#6c47ff] transition-all"
+              required
+              className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white placeholder-[#71717a] focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all mb-4"
             />
-          </div>
 
-          {/* Email Input */}
-          <div>
-            <label className="block text-sm font-medium text-[#ededed] mb-2">Email address</label>
+            {/* Email Input */}
+            <div className="flex justify-between items-center mb-1.5">
+              <label className="text-[13px] font-medium text-[#ededed]">Email address</label>
+            </div>
             <input
               type="email"
-              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
-              className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#6c47ff] transition-all"
+              required
+              className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white placeholder-[#71717a] focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all mb-4"
             />
-          </div>
 
-          {/* Password Input */}
-          <div className="relative">
-            <label className="block text-sm font-medium text-[#ededed] mb-2">Password</label>
-            <div className="relative">
+            {/* Password Input */}
+            <div className="flex justify-between items-center mb-1.5">
+              <label className="text-[13px] font-medium text-[#ededed]">Password</label>
+            </div>
+            <div className="relative mb-4">
               <input
                 type={showPassword ? "text" : "password"}
-                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Create a password"
-                className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#6c47ff] transition-all"
+                placeholder="Create a strong password"
+                required
+                className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white placeholder-[#71717a] focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#71717a] hover:text-white transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#71717a] hover:text-white transition-colors"
               >
-                <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-[13px]`}></i>
               </button>
             </div>
+
+            {/* Role Selection */}
+            <div className="mb-6">
+              <label className="block text-[13px] font-medium text-[#ededed] mb-1.5">Select Role</label>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all"
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+
+            {/* Submit Button */}
+            <button type="submit" className="w-full bg-cyan-400 text-black font-semibold py-2 rounded-lg text-[13px] flex items-center justify-center gap-1.5 hover:bg-gray-200 transition-colors">
+              Sign Up
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </form>
+        </div>
+
+        {/* Bottom Links & Footer */}
+        <div className="bg-[#131315] border-t border-[#2e2e32]">
+          <div className="py-4 text-center border-b border-[#2e2e32]">
+            <p className="text-[#a1a1aa] text-[13px]">
+              Already have an account? <Link to="/signin" className="text-white font-medium hover:underline">Sign in</Link>
+            </p>
           </div>
-
-          {/* Role Dropdown */}
-          <div>
-            <label className="block text-sm font-medium text-[#ededed] mb-2">Select Role</label>
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-xl px-4 py-3 text-sm text-[#ededed] focus:outline-none focus:ring-1 focus:ring-[#6c47ff] transition-all"
-            >
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-            </select>
-          </div>
-
-          <button type="submit" className="w-full bg-[#6c47ff] hover:bg-[#5a36e0] text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 group mt-2">
-            Sign Up
-            <i className="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
-          </button>
-        </form>
-
-        <div className="mt-8 text-center">
-          <p className="text-[#a1a1aa] text-sm">
-            Already have an account? <Link to="/signin" className="text-[#6c47ff] font-medium hover:underline">Sign in</Link>
-          </p>
         </div>
 
       </div>
