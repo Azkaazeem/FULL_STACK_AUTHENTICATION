@@ -10,21 +10,20 @@ import NotFound from './errorPage';
 function App() {
   return (
     <Router>
-      {/* 2. Toaster component yahan add karein (Routes se pehle ya baad mein) */}
       <Toaster 
         position="top-center"
         toastOptions={{
           style: {
-            borderRadius: '0px', // Sharp corners
-            background: '#131316', // Dark background
-            color: '#fff', // White text
-            border: '1px solid #27272a', // Dark border
+            borderRadius: '0px',
+            background: '#131316',
+            color: '#fff',
+            border: '1px solid #27272a',
           },
           success: {
-            iconTheme: { primary: '#10b981', secondary: '#fff' }, // Emerald green for success
+            iconTheme: { primary: '#10b981', secondary: '#fff' },
           },
           error: {
-            iconTheme: { primary: '#ef4444', secondary: '#fff' }, // Red for error
+            iconTheme: { primary: '#ef4444', secondary: '#fff' },
           },
         }}
       />

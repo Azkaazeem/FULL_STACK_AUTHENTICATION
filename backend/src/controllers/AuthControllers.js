@@ -39,7 +39,6 @@ const loginUser = async (req, res) => {
     if (isPasswordCorrect) {
       const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET);
     
-      // Cookies settings ko local development ke liye adjust kiya
       res.cookie("token", token, { 
         httpOnly: true, 
         secure: process.env.NODE_ENV === 'production', 
