@@ -23,6 +23,7 @@ const addUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  console.log("Frontend se aane wala email:", email);
   
   try {
     if (!email || !password) {
