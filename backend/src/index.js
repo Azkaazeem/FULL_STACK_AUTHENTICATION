@@ -10,7 +10,12 @@ const app = express();
 
 connectDb(); 
 
-app.use(cors());
+// CORS update kiya gaya hai credentials ke liye
+app.use(cors({
+  origin: 'http://localhost:5173', // Aapka frontend URL (Vite default)
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 

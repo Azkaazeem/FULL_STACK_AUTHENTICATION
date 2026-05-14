@@ -1,36 +1,66 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState('user');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const loadingToast = toast.loading("Logging in...");
+
+    try {
+      const response = await fetch('http://localhost:5000/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+      toast.dismiss(loadingToast);
+
+      if (data.status === true) {
+        toast.success("Login successful! 🎉");
+        // Role ke mutabiq redirect karein
+        if (data.user.role === 'admin') {
+          navigate('/admin-dashboard');
+        } else {
+          navigate('/');
+        }
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      toast.error("Server connection failed!");
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0a0a0b] text-white p-4 font-sans">
-
       <div className="w-full max-w-[400px] bg-[#131315] rounded-xl border border-[#2e2e32] shadow-2xl overflow-hidden">
         <div className="p-8 pb-6">
           <p className="text-[#a1a1aa] text-sm text-center mb-7">Welcome back! Please sign in to continue</p>
 
-          {/* Email and Password Form */}
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleLogin}>
             <div className="flex justify-between items-center mb-1.5">
               <label className="text-[13px] font-medium text-[#ededed]">Email address</label>
-              <button type="button" className="text-[13px] text-[#a1a1aa] hover:text-[#ededed] transition-colors">Use phone</button>
             </div>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
+              required
               className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white placeholder-[#71717a] focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all mb-4"
             />
 
             <div className="flex justify-between items-center mb-1.5">
               <label className="text-[13px] font-medium text-[#ededed]">Password</label>
-              <button type="button" className="text-[13px] text-[#a1a1aa] hover:text-[#ededed] transition-colors">Forgot password?</button>
             </div>
             <div className="relative mb-5">
               <input
@@ -38,6 +68,7 @@ const SignIn = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
+                required
                 className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white placeholder-[#71717a] focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all"
               />
               <button
@@ -70,7 +101,6 @@ const SignIn = () => {
           </form>
         </div>
 
-        {/* Bottom Links & Footer */}
         <div className="bg-[#131315] border-t border-[#2e2e32]">
           <div className="py-4 text-center border-b border-[#2e2e32]">
             <p className="text-[#a1a1aa] text-[13px]">
@@ -78,7 +108,6 @@ const SignIn = () => {
             </p>
           </div>
         </div>
-
       </div>
     </div>
   );
