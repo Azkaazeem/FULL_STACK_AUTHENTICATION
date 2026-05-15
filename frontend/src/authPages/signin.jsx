@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
@@ -17,24 +17,31 @@ const SignIn = () => {
       const response = await fetch('http://localhost:5000/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password, role })
       });
 
       const data = await response.json();
       toast.dismiss(loadingToast);
 
       if (data.status === true) {
-        toast.success("Login successful! 🎉");
-        // Role ke mutabiq redirect karein
+        const safeUser = { ...data.user };
+        delete safeUser.password;
+        localStorage.setItem('loggedInUser', JSON.stringify(safeUser));
+        localStorage.setItem('authToken', data.token);
+
+        toast.success("Login successful!");
+        
+        // Match these paths with your App.jsx routes
         if (data.user.role === 'admin') {
-          navigate('/admin-dashboard');
+          navigate('/admin'); // '/admin-dashboard' ki jagah sirf '/admin'
         } else {
-          navigate('/');
+          navigate('/home');  // '/' ki jagah '/home' par bhejen
         }
       } else {
         toast.error(data.message);
       }
-    } catch (error) {
+      
+    } catch {
       toast.dismiss(loadingToast);
       toast.error("Server connection failed!");
     }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast'; // 1. Yeh import karein
 import SignIn from './authPages/signin';
@@ -6,6 +5,17 @@ import SignUp from './authPages/signup';
 import AdminDashboard from './admin/AdminDashboard';
 import Home from './user/home';
 import NotFound from './errorPage';
+
+function ProtectedAdmin() {
+  const savedUser = localStorage.getItem('loggedInUser');
+  const user = savedUser ? JSON.parse(savedUser) : null;
+
+  if (user?.role !== 'admin') {
+    return <Navigate to="/signin" replace />;
+  }
+
+  return <AdminDashboard />;
+}
 
 function App() {
   return (
@@ -32,7 +42,7 @@ function App() {
         <Route path="/" element={<Navigate to="/signin" />} /> 
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin" element={<ProtectedAdmin />} />
         <Route path="/home" element={<Home />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

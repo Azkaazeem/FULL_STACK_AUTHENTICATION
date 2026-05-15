@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
@@ -8,7 +8,6 @@ const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('user');
 
   const navigate = useNavigate();
 
@@ -21,7 +20,7 @@ const SignUp = () => {
       const response = await fetch('http://localhost:5000/api/v1/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, role })
+        body: JSON.stringify({ name, email, password })
       });
 
       const data = await response.json();
@@ -111,19 +110,6 @@ const SignUp = () => {
               >
                 <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-[13px]`}></i>
               </button>
-            </div>
-
-            {/* Role Selection */}
-            <div className="mb-6">
-              <label className="block text-[13px] font-medium text-[#ededed] mb-1.5">Select Role</label>
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                className="w-full bg-[#1a1a1d] border border-[#2e2e32] rounded-lg px-3 py-2 text-[13px] text-white focus:outline-none focus:border-[#52525b] focus:ring-1 focus:ring-[#52525b] transition-all"
-              >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
             </div>
 
             {/* Submit Button */}
