@@ -85,7 +85,7 @@ const UserHome = () => {
     if (!result.isConfirmed) return;
 
     try {
-      await fetch('http://https://full-stack-authentication-chi.vercel.app//api/v1/auth/logout', {
+      await fetch('https://full-stack-authentication-chi.vercel.app/api/v1/auth/logout', {
         method: 'POST',
         credentials: 'include',
       });

@@ -14,7 +14,7 @@ const SignIn = () => {
     const loadingToast = toast.loading("Logging in...");
 
     try {
-      const response = await fetch('http://https://full-stack-authentication-chi.vercel.app//api/v1/auth/login', {
+      const response = await fetch('https://full-stack-authentication-chi.vercel.app/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, role })
