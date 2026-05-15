@@ -13,7 +13,10 @@ const app = express();
 connectDb();
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: [
+    "https://full-stack-authentication-1wzs.vercel.app", // Vercel Frontend
+    "http://localhost:5173"                              // Local Frontend
+  ],
   credentials: true
 }));
 
