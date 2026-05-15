@@ -33,9 +33,9 @@ const SignIn = () => {
         
         // Match these paths with your App.jsx routes
         if (data.user.role === 'admin') {
-          navigate('/admin'); // '/admin-dashboard' ki jagah sirf '/admin'
+          navigate('/admin'); // Use '/admin' instead of '/admin-dashboard'
         } else {
-          navigate('/home');  // '/' ki jagah '/home' par bhejen
+          navigate('/home');  // Redirect to '/home' instead of '/'
         }
       } else {
         toast.error(data.message);

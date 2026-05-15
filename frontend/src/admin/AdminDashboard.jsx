@@ -139,7 +139,7 @@ function AdminDashboard() {
   const handleLogout = async () => {
     const result = await Swal.fire({
       title: 'Logout?',
-      text: 'Admin panel se logout hona hai?',
+      text: 'Are you sure you want to logout from the admin panel?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Logout',

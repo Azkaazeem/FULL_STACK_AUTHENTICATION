@@ -28,18 +28,18 @@ const SignUp = () => {
       toast.dismiss(loadingToast);
 
       if (data.status === true) {
-        // Success ka popup
+        // Success popup
         toast.success("Account Created Successfully! 🎉");
         navigate('/signin');
       } else {
-        // Error ka popup
+        // Error popup
         toast.error(data.message);
       }
     } catch (error) {
       toast.dismiss(loadingToast);
       console.log("Connection Error:", error);
-      // Server connect na hone ka popup
-      toast.error("Server se connect nahi ho pa raha!");
+      // Server connection failure popup
+      toast.error("Unable to connect to the server!");
     }
   };
 
