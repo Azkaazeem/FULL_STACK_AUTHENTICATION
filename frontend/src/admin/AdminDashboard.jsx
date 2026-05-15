@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-const API_URL = 'http://localhost:5000/api/v1/auth';
+const API_URL = 'http://https://full-stack-authentication-chi.vercel.app//api/v1/auth';
 const roleOptions = ['all', 'admin', 'user'];
 
 function AdminDashboard() {
